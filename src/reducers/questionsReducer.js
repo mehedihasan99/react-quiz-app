@@ -2,6 +2,7 @@ export const initialState = {
   questions: [],
   // loading, error, ready, start, finish
   status: 'loading',
+  index: 0,
 }
 
 function questionsReducer(state, action) {
@@ -17,6 +18,12 @@ function questionsReducer(state, action) {
       return {
         ...state,
         status: 'error',
+      }
+    }
+    case 'START_QUIZ': {
+      return {
+        ...state,
+        status: 'start',
       }
     }
     default:

@@ -3,11 +3,12 @@ import Error from './components/Error'
 import Header from './components/Header'
 import Loader from './components/Loader'
 import Main from './components/Main'
+import Question from './components/Question'
 import StartScreen from './components/StartScreen'
 import questionsReducer, { initialState } from './reducers/questionsReducer'
 const BASE_URL = 'http://localhost:8000'
 function App() {
-  const [{ questions, status }, dispatch] = useReducer(
+  const [{ questions, status, index }, dispatch] = useReducer(
     questionsReducer,
     initialState
   )
@@ -30,7 +31,10 @@ function App() {
       <Main>
         {status === 'loading' && <Loader />}
         {status === 'error' && <Error />}
-        {status === 'ready' && <StartScreen numOfQuestions={numOfQuestions} />}
+        {status === 'ready' && (
+          <StartScreen dispatch={dispatch} numOfQuestions={numOfQuestions} />
+        )}
+        {status === 'start' && <Question question={questions[index]} />}
       </Main>
     </div>
   )

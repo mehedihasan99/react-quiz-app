@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function StartScreen({ numOfQuestions }) {
+export default function StartScreen({ numOfQuestions, dispatch }) {
   return (
     <div className="start">
       <h2 className="title">🚀 Welcome to the Ultimate React Quiz! 🌟</h2>
@@ -9,7 +9,14 @@ export default function StartScreen({ numOfQuestions }) {
         <strong>{numOfQuestions}</strong> thought-provoking questions just for
         you.
       </p>
-      <button className="btn btn-ui">🎯 Start Your Journey!</button>
+      <button
+        onClick={() => {
+          dispatch({ type: 'START_QUIZ' })
+        }}
+        className="btn btn-ui"
+      >
+        🎯 Start Your Journey!
+      </button>
     </div>
   )
 }
