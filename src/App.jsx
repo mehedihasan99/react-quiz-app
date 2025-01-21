@@ -3,11 +3,15 @@ import Error from './components/Error'
 import Header from './components/Header'
 import Loader from './components/Loader'
 import Main from './components/Main'
+import StartScreen from './components/StartScreen'
 import questionsReducer, { initialState } from './reducers/questionsReducer'
 const BASE_URL = 'http://localhost:8000'
 function App() {
-  const [state, dispatch] = useReducer(questionsReducer, initialState)
-  const { questions, status } = state
+  const [{ questions, status }, dispatch] = useReducer(
+    questionsReducer,
+    initialState
+  )
+  const numOfQuestions = questions.length
   useEffect(() => {
     async function fetchQuestions() {
       try {
@@ -26,6 +30,7 @@ function App() {
       <Main>
         {status === 'loading' && <Loader />}
         {status === 'error' && <Error />}
+        {status === 'ready' && <StartScreen numOfQuestions={numOfQuestions} />}
       </Main>
     </div>
   )

@@ -20,7 +20,9 @@ function questionsReducer(state, action) {
       }
     }
     default:
-      return state
+      throw new Error(
+        `Unsupported action type ${action.type} in questionsReducer`
+      )
   }
 }
 

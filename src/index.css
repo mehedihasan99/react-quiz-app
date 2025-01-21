@@ -143,6 +143,19 @@ progress {
   float: right;
 }
 
+.title {
+  font-size: 2.2rem;
+  color: #4a90e2;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+.subtitle {
+  font-size: 2rem;
+  color: #a59e9e;
+  margin-bottom: 2rem;
+}
+
 .options {
   display: flex;
   flex-direction: column;
