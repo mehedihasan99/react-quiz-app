@@ -40,6 +40,13 @@ function questionsReducer(state, action) {
             : state.points,
       }
     }
+    case 'NEXT_QUESTION': {
+      return {
+        ...state,
+        index: state.index + 1,
+        answer: null,
+      }
+    }
     default:
       throw new Error(
         `Unsupported action type ${action.type} in questionsReducer`
