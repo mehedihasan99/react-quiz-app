@@ -5,6 +5,7 @@ export const initialState = {
   index: 0,
   answer: null,
   points: 0,
+  highestScore: 0,
 }
 
 function questionsReducer(state, action) {
@@ -45,6 +46,21 @@ function questionsReducer(state, action) {
         ...state,
         index: state.index + 1,
         answer: null,
+      }
+    }
+    case 'FINISH_QUIZ': {
+      return {
+        ...state,
+        status: 'finish',
+        highestScore:
+          state.points > state.highestScore ? state.points : state.highestScore,
+      }
+    }
+    case 'RESTART_QUIZ': {
+      return {
+        ...initialState,
+        status: 'ready',
+        questions: state.questions,
       }
     }
     default:

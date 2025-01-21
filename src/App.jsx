@@ -1,5 +1,6 @@
 import { useEffect, useReducer } from 'react'
 import Error from './components/Error'
+import Finish from './components/Finish'
 import Header from './components/Header'
 import Loader from './components/Loader'
 import Main from './components/Main'
@@ -10,10 +11,8 @@ import StartScreen from './components/StartScreen'
 import questionsReducer, { initialState } from './reducers/questionsReducer'
 const BASE_URL = 'http://localhost:8000'
 function App() {
-  const [{ questions, status, index, answer, points }, dispatch] = useReducer(
-    questionsReducer,
-    initialState
-  )
+  const [{ questions, status, index, answer, points, highestScore }, dispatch] =
+    useReducer(questionsReducer, initialState)
   const numOfQuestions = questions.length
   const totalPoints = questions.reduce(
     (acc, question) => acc + question.points,
@@ -54,8 +53,21 @@ function App() {
               dispatch={dispatch}
               answer={answer}
             />
-            <NextButton dispatch={dispatch} answer={answer} />
+            <NextButton
+              dispatch={dispatch}
+              answer={answer}
+              index={index}
+              numOfQuestions={numOfQuestions}
+            />
           </>
+        )}
+        {status === 'finish' && (
+          <Finish
+            points={points}
+            totalPoints={totalPoints}
+            highestScore={highestScore}
+            dispatch={dispatch}
+          />
         )}
       </Main>
     </div>
