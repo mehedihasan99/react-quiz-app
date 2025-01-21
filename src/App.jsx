@@ -8,7 +8,7 @@ import StartScreen from './components/StartScreen'
 import questionsReducer, { initialState } from './reducers/questionsReducer'
 const BASE_URL = 'http://localhost:8000'
 function App() {
-  const [{ questions, status, index }, dispatch] = useReducer(
+  const [{ questions, status, index, answer }, dispatch] = useReducer(
     questionsReducer,
     initialState
   )
@@ -34,7 +34,13 @@ function App() {
         {status === 'ready' && (
           <StartScreen dispatch={dispatch} numOfQuestions={numOfQuestions} />
         )}
-        {status === 'start' && <Question question={questions[index]} />}
+        {status === 'start' && (
+          <Question
+            question={questions[index]}
+            dispatch={dispatch}
+            answer={answer}
+          />
+        )}
       </Main>
     </div>
   )

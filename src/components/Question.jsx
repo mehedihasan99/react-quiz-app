@@ -1,18 +1,11 @@
 import React from 'react'
+import QuestionOption from './QuestionOption'
 
-export default function Question({ question }) {
-  console.log(question)
+export default function Question({ question, dispatch, answer }) {
   return (
     <div>
       <h4>{question.question}</h4>
-
-      <div className="options">
-        {question.options.map((option, index) => (
-          <button key={option} className="btn btn-option">
-            {option}
-          </button>
-        ))}
-      </div>
+      <QuestionOption question={question} dispatch={dispatch} answer={answer} />
     </div>
   )
 }

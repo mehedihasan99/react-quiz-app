@@ -3,6 +3,8 @@ export const initialState = {
   // loading, error, ready, start, finish
   status: 'loading',
   index: 0,
+  answer: null,
+  points: 0,
 }
 
 function questionsReducer(state, action) {
@@ -24,6 +26,18 @@ function questionsReducer(state, action) {
       return {
         ...state,
         status: 'start',
+      }
+    }
+    case 'ANSWER_QUESTION': {
+      const currentQuestion = state.questions[state.index]
+      console.log(currentQuestion)
+      return {
+        ...state,
+        answer: action.payload,
+        points:
+          action.payload === currentQuestion.correctOption
+            ? state.points + currentQuestion.points
+            : state.points,
       }
     }
     default:
