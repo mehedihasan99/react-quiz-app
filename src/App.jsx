@@ -1,6 +1,7 @@
 import { useEffect, useReducer } from 'react'
 import Error from './components/Error'
 import Finish from './components/Finish'
+import Footer from './components/Footer'
 import Header from './components/Header'
 import Loader from './components/Loader'
 import Main from './components/Main'
@@ -8,11 +9,14 @@ import NextButton from './components/NextButton'
 import Progress from './components/Progress'
 import Question from './components/Question'
 import StartScreen from './components/StartScreen'
+import Timer from './components/Timer'
 import questionsReducer, { initialState } from './reducers/questionsReducer'
 const BASE_URL = 'http://localhost:8000'
 function App() {
-  const [{ questions, status, index, answer, points, highestScore }, dispatch] =
-    useReducer(questionsReducer, initialState)
+  const [
+    { questions, status, index, answer, points, highestScore, remainingTime },
+    dispatch,
+  ] = useReducer(questionsReducer, initialState)
   const numOfQuestions = questions.length
   const totalPoints = questions.reduce(
     (acc, question) => acc + question.points,
@@ -53,12 +57,15 @@ function App() {
               dispatch={dispatch}
               answer={answer}
             />
-            <NextButton
-              dispatch={dispatch}
-              answer={answer}
-              index={index}
-              numOfQuestions={numOfQuestions}
-            />
+            <Footer>
+              <Timer dispatch={dispatch} time={remainingTime} />
+              <NextButton
+                dispatch={dispatch}
+                answer={answer}
+                index={index}
+                numOfQuestions={numOfQuestions}
+              />
+            </Footer>
           </>
         )}
         {status === 'finish' && (

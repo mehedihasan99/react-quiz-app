@@ -6,6 +6,7 @@ export const initialState = {
   answer: null,
   points: 0,
   highestScore: 0,
+  remainingTime: 0,
 }
 
 function questionsReducer(state, action) {
@@ -14,6 +15,7 @@ function questionsReducer(state, action) {
       return {
         ...state,
         questions: action.payload,
+
         status: 'ready',
       }
     }
@@ -27,6 +29,7 @@ function questionsReducer(state, action) {
       return {
         ...state,
         status: 'start',
+        remainingTime: state.questions.length * 30,
       }
     }
     case 'ANSWER_QUESTION': {
@@ -63,6 +66,14 @@ function questionsReducer(state, action) {
         questions: state.questions,
       }
     }
+    case 'DECREMENT_TIME': {
+      return {
+        ...state,
+        remainingTime: state.remainingTime - 1,
+        status: state.remainingTime === 0 ? 'finish' : state.status,
+      }
+    }
+
     default:
       throw new Error(
         `Unsupported action type ${action.type} in questionsReducer`
